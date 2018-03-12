@@ -178,7 +178,8 @@ exports.testCmd = (rl, id) => {
 		}else{
 			let id = toBeResolved[Math.floor(toBeResolved.lenght * Math.random())];
 			let quiz = model.getByIndex(id);
-			rl.question(quiz.question, answer =>{
+			toBeResolved.splice(toBeResolved.indexOf(id), 1);
+			rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {
 				if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim());{
 					score++;
 					 log("CORRECTA - Lleva " + score + " aciertos.");
