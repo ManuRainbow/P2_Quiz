@@ -172,10 +172,10 @@ exports.playCmd = rl => {
 		toBeResolved[i]=i;
 		}
 
-	const playStart = () =>{
+	const playOne = () =>{
 		if(toBeResolved.length === 0){
 			log("Se han acabado las preguntas");
-			log("Fin del juego. Aciertos:");
+			log("Fin del juego. Aciertos:" + score);
 			biglog(score, 'magenta');
 			rl.prompt();
 		}else{
@@ -183,22 +183,22 @@ exports.playCmd = rl => {
 			let quiz = model.getByIndex(id);
 			toBeResolved.splice(toBeResolved.indexOf(id), 1);
 			rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {     
-                if(answer.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
+                if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
                     score++;
 
                     log("CORRECTO - Lleva " + score + " aciertos.");
                     biglog('CORRECTA','green');
-                    playStart();
+                    playOne();
                 }else{
 					log('INCORRECTO');
-					log('Fin del juego. Aciertos:');
+					log('Fin del juego. Aciertos:'+score);
 					biglog(score, 'magenta');
 				}
 				rl.prompt();
 			});
 		}
 	};
-	playStart();
+	playOne();
 };
 
 /**
@@ -208,8 +208,7 @@ exports.playCmd = rl => {
 */
 exports.creditsCmd = rl => {
     log('Autores de la práctica:');
-    log('Isabel Rodríguez Ruiz', 'green');
-    log('Jorge Calatayud Maeso', 'green');
+    log('Manuel Rebollo Gordillo');
     rl.prompt();
 };
 
