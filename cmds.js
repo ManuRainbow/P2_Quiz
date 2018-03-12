@@ -135,66 +135,70 @@ if(typeof id === "undefined"){
 * @param id Clave del quiz a borrar en el modelo.
 */
 exports.testCmd = (rl, id) => {
-		if (typeof id === "undefined"){
-			errorlog(`Falta el parámetro id.`);
-			rl.prompt();
-		} else {
-			try{
-							const quiz = model.getByIndex(id);
-					rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {     
-		                if(answer.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
-		                    log("Su respuesta es correcta.");
-		                    biglog('CORRECTA','green');
-		                }else{
-							log('Su respuesta es incorrecta.');
-							biglog('INCORRECTA', 'red');
-						}
-						rl.prompt();
-					});
-				}catch(error){
-					errorlog(error.message);
+	if(typeof id === "undefined"){
+		errorlog('Falta el parámetro id.');
+		rl.prompt();
+	}else {
+		try{
+			const quiz = model.getByIndex(id);
+			rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {     
+                if(answer.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
+                    log("Su respuesta es correcta.");
+                    biglog('CORRECTA','green');
+                }else{
+					log('Su respuesta es incorrecta.');
+					biglog('INCORRECTA', 'red');
 				}
-			}
-		};
+				rl.prompt();
+			});
+		}catch(error){
+			errorlog(error.message);
+			rl.prompt();
+		}
+	}
+};
 
-		/**
-		* Pregunta todos los quizzes existentes en el modelo en orden aleatorio.
-		* Se gana si se contesta a todos satisfactoriamente.
-		*
-		* @param rl Objeto readline usado para implementar el CLI.
-		*/
-		exports.playCmd = rl => {
-			let score = 0
-			let toBeResolved = [];
-		for(let i = 0; i< model.count() ; i++){
+/**
+* Pregunta todos los quizzes existentes en el modelo en orden aleatorio.
+* Se gana si se contesta a todos satisfactoriamente.
+*
+* @param rl Objeto readline usado para implementar el CLI.
+*/
+exports.playCmd = rl => {
+	let score = 0
+	let toBeResolved = [];
+
+	for(let i=0; i<model.count(); i++){
 		toBeResolved[i]=i;
 		}
-		const playOne = () =>{
+
+	const playStart = () =>{
 		if(toBeResolved.length === 0){
-		log("No hay nada más que preguntar.");
-		log("Fin del juego. Aciertos:" + score);
-		biglog(score, 'magenta');
-		rl.prompt();
+			log("Se han acabado las preguntas");
+			log("Fin del juego. Aciertos:");
+			biglog(score, 'magenta');
+			rl.prompt();
 		}else{
-		   let id = toBeResolved[Math.floor(Math.random() * toBeResolved.lenght)];
-	           let quiz = model.getByIndex(id);
-		   toBeResolved.splice(toBeResolved.indexOf(id), 1);
-		   rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {
-			if(answer.toUpperCase().trim() === quiz.answer.toUpperrCase().trim()){
-				score++;
-				log("CORRECTA - Lleva " + score + " aciertos.");
-		                biglog('CORRECTO','green');
-		                playOne();
-				}else{
-				   log('INCORRECTO.');
-				   log('Fin del juego. Aciertos:' + score);
-				   biglog(score, 'magenta');
+			let id = toBeResolved[Math.floor((Math.random() * toBeResolved.length))];
+			let quiz = model.getByIndex(id);
+			toBeResolved.splice(toBeResolved.indexOf(id), 1);
+			rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {     
+                if(answer.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
+                    score++;
+
+                    log("CORRECTO - Lleva " + score + " aciertos.");
+                    biglog('CORRECTA','green');
+                    playStart();
+                }else{
+					log('INCORRECTO');
+					log('Fin del juego. Aciertos:');
+					biglog(score, 'magenta');
 				}
 				rl.prompt();
 			});
 		}
 	};
-  playOne();
+	playStart();
 };
 
 /**
@@ -204,8 +208,8 @@ exports.testCmd = (rl, id) => {
 */
 exports.creditsCmd = rl => {
     log('Autores de la práctica:');
-    log('Manuel Rebollo Gordillo');
-    
+    log('Isabel Rodríguez Ruiz', 'green');
+    log('Jorge Calatayud Maeso', 'green');
     rl.prompt();
 };
 

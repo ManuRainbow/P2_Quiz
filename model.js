@@ -24,7 +24,8 @@ let quizzes = [
 	{
 		question: "Capital de Portugal",
 		answer: "Lisboa"
-	}];
+	}
+];
 	
 
 /**
@@ -38,7 +39,7 @@ let quizzes = [
 * Si se produce otro tipo de error, se lanza una excepción que abortará
 * la ejecución del programa.
 */
-const load = () => {
+exports load = () => {
 	fs.readFile(DB_FILENAME, (err, data) =>{
 		if(err){
 			//La primera vez no existe el fichero
@@ -62,7 +63,7 @@ const load = () => {
 * Si se produce algún tipo de error, se lanza una excepción que abortará
 * la ejecución del programa.
 */
-const save = () => {
+exports save = () => {
 	fs.writeFile(DB_FILENAME,
 		JSON.stringify(quizzes),
 		err => {
@@ -133,7 +134,7 @@ exports.getAll = () => JSON.parse(JSON.stringify(quizzes));
 */
 exports.getByIndex = id => {
  const quiz = quizzes[id];
- if(typeof quiz === "undefined"){
+ if ( typeof quiz === "undefined"){
  	throw new Error(`El valor del parámetro id no es válido.`);
  }
  return JSON.parse(JSON.stringify(quiz));
