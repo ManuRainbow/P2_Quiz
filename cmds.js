@@ -172,29 +172,30 @@ exports.testCmd = (rl, id) => {
 		const playOne = () =>{
 		if(toBeResolved.length === 0){
 		log("No hay nada más que preguntar.");
-					log("Fin del juego. Aciertos:" + score);
-					biglog(score, 'magenta');
-					rl.prompt();
+		log("Fin del juego. Aciertos:" + score);
+		biglog(score, 'magenta');
+		rl.prompt();
 		}else{
-			let id = toBeResolved[Math.floor(toBeResolved.lenght * Math.random())];
-			let quiz = model.getByIndex(id);
-			toBeResolved.splice(toBeResolved.indexOf(id), 1);
-			rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {
-				if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim());{
-					score++;
-					 log("CORRECTA - Lleva " + score + " aciertos.");
-		                    biglog('CORRECTA','green');
-		                    playOne();
-				} else{
-					log('INCORRECTA.');
-							log('Fin del juego. Aciertos:' + score);
+		   let id = toBeResolved[Math.floor(Math.random() * toBeResolved.lenght)];
+	           let quiz = model.getByIndex(id);
+		   toBeResolved.splice(toBeResolved.indexOf(id), 1);
+		   rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {
+			if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
+				score++;
+				log("CORRECTA - Lleva " + score + " aciertos.");
+		                biglog('CORRECTO','green');
+		                playOne();
+				}else{
+				   log('INCORRECTO.');
+				   log('Fin del juego. Aciertos:' + score);
+				   biglog(score, 'magenta');
 				}
-	rl.prompt();
+				rl.prompt();
 			});
 		}
-		};
-		playOne();
-		};
+	};
+  playOne();
+};
 
 /**
 * Muestra los nombres de los autores de la práctica.
