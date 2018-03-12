@@ -169,7 +169,7 @@ exports.testCmd = (rl, id) => {
 		for(let i = 0; i< model.count() ; i++){
 		toBeResolved[i]=i;
 		}
-		cont playOne = () =>{
+		const playOne = () =>{
 		if(toBeResolved.length === 0){
 		log("No hay nada más que preguntar.");
 					log("Fin del juego. Aciertos:" + score);
