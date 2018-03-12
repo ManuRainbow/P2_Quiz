@@ -1,0 +1,29 @@
+{
+  "lockfileVersion": 1,
+  "name": "quiz",
+  "description": "Proyecto Quiz",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ManuRainbow/P2_Quiz.git"
+  },
+  "keywords": [
+    "quiz",
+    "core"
+  ],
+  "author": "ManuRainbow",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/ManuRainbow/P2_Quiz/issues"
+  },
+  "homepage": "https://github.com/ManuRainbow/P2_Quiz#readme",
+  "dependencies": {
+    "chalk": "^2.3.2",
+    "figlet": "^1.2.0"
+  }
+}
