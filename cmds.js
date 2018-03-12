@@ -142,7 +142,7 @@ exports.testCmd = (rl, id) => {
 			try{
 							const quiz = model.getByIndex(id);
 					rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {     
-		                if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
+		                if(answer.toUpperCase().trim() === quiz.answer.toUpperCase().trim()){
 		                    log("Su respuesta es correcta.");
 		                    biglog('CORRECTA','green');
 		                }else{
@@ -180,7 +180,7 @@ exports.testCmd = (rl, id) => {
 	           let quiz = model.getByIndex(id);
 		   toBeResolved.splice(toBeResolved.indexOf(id), 1);
 		   rl.question(`${colorize(quiz.question + '?', 'red')} `, answer => {
-			if(answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
+			if(answer.toUpperCase().trim() === quiz.answer.toUpperrCase().trim()){
 				score++;
 				log("CORRECTA - Lleva " + score + " aciertos.");
 		                biglog('CORRECTO','green');
